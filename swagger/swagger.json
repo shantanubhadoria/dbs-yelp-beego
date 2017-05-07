@@ -1,0 +1,106 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Restaurant API",
+        "description": "Restaurant service API.",
+        "version": "1.0.0",
+        "contact": {
+            "email": "shantanu.bhadoria@gmail.com"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/restaurant/{keywords}/{latitude}/{longitude}": {
+            "get": {
+                "tags": [
+                    "restaurant"
+                ],
+                "description": "get Restaurants",
+                "operationId": "RestaurantController.GetAll",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "keywords",
+                        "description": "keywords search string",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "latitude",
+                        "description": "latitude of the search location",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "longitude",
+                        "description": "longitude of the search location",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/models.RestaurantResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Restaurant": {
+            "title": "Restaurant",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "image_url": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
+        "models.RestaurantResponse": {
+            "title": "RestaurantResponse",
+            "type": "object",
+            "properties": {
+                "Businesses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Restaurant"
+                    }
+                },
+                "Total": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "restaurant",
+            "description": "RestaurantController operations for Restaurant\n"
+        }
+    ]
+}
